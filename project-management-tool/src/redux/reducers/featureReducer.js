@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux'
 
-import { ADD_FEATURE, EDIT_FEATURE, DELETE_FEATURE } from '../actions/index.js'
+import {
+  ADD_FEATURE,
+  EDIT_FEATURE,
+  DELETE_FEATURE,
+  ADD_TODO,
+  DELETE_TODO,
+} from '../actions/index.js'
 
 const initialState = {
   projects: {
@@ -8,19 +14,14 @@ const initialState = {
       project1: {
         id: 'project1',
         title: 'project1',
-        features: ['feature1'],
+        features: ['feature1', 'feature2'],
       },
       project2: {
         id: 'project2',
         title: 'project2',
-        features: ['feature3'],
-      },
-      project3: {
-        id: 'project3',
-        title: 'project3',
       },
     },
-    allIds: ['project1', 'project2', 'project3'],
+    allIds: ['project1', 'project2'],
   },
   features: {
     byId: {
@@ -32,28 +33,26 @@ const initialState = {
       feature2: {
         id: 'feature2',
         title: 'feature2',
-        todos: ['todo1', 'todo2'],
-      },
-      feature3: {
-        id: 'feature3',
-        title: 'feature3',
-        todos: ['todo1', 'todo2'],
       },
     },
-    allIds: ['feature1', 'feature2', 'feature3'],
+    allIds: ['feature1', 'feature2'],
   },
   todos: {
     byId: {
       todo1: {
         id: 'todo1',
         title: 'todo1',
-        completed: true,
+        completed: false,
+      },
+      todo2: {
+        id: 'todo2',
+        title: 'todo2',
+        completed: false,
       },
     },
-    allIds: ['todo1'],
+    allIds: ['todo1', 'todo2'],
   },
 }
-
 function addFeatureEntry(state, action) {
   const { payload } = action
   const { featureId, title } = payload
@@ -96,6 +95,44 @@ function deleteFeatureEntry(state, action) {
   }
 }
 
+function addTodo(state = initialState.features.byId, action) {
+  const { payload } = action
+  const { featureId, todoId } = payload
+
+  switch (action.type) {
+    case ADD_TODO:
+      const feature = state[featureId]
+      let featureTodos = []
+      if (feature.todos) {
+        featureTodos = feature.todos
+      }
+      return {
+        ...state,
+        [featureId]: {
+          ...feature,
+          todos: featureTodos.concat(todoId),
+        },
+      }
+    default:
+      return state
+  }
+}
+
+function deleteTodo(state = initialState.features.byId, action) {
+  const { payload } = action
+  const { featureId, todoId } = payload
+
+  const feature = state[featureId]
+
+  return {
+    ...state,
+    [featureId]: {
+      ...feature,
+      todos: feature.todos.filter(item => item !== todoId),
+    },
+  }
+}
+
 function byFeatureId(state = initialState.features.byId, action) {
   switch (action.type) {
     case ADD_FEATURE:
@@ -104,6 +141,11 @@ function byFeatureId(state = initialState.features.byId, action) {
       return editFeatureEntry(state, action)
     case DELETE_FEATURE:
       return deleteFeatureEntry(state, action)
+    case ADD_TODO:
+      return addTodo(state, action)
+    case DELETE_TODO:
+      return deleteTodo(state, action)
+
     default:
       return state
   }

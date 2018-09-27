@@ -13,19 +13,14 @@ const initialState = {
       project1: {
         id: 'project1',
         title: 'project1',
-        features: ['feature1'],
+        features: ['feature1', 'feature2'],
       },
       project2: {
         id: 'project2',
         title: 'project2',
-        features: ['feature3'],
-      },
-      project3: {
-        id: 'project3',
-        title: 'project3',
       },
     },
-    allIds: ['project1', 'project2', 'project3'],
+    allIds: ['project1', 'project2'],
   },
   features: {
     byId: {
@@ -37,25 +32,24 @@ const initialState = {
       feature2: {
         id: 'feature2',
         title: 'feature2',
-        todos: ['todo1', 'todo2'],
-      },
-      feature3: {
-        id: 'feature3',
-        title: 'feature3',
-        todos: ['todo1', 'todo2'],
       },
     },
-    allIds: ['feature1', 'feature2', 'feature3'],
+    allIds: ['feature1', 'feature2'],
   },
   todos: {
     byId: {
       todo1: {
         id: 'todo1',
         title: 'todo1',
-        completed: true,
+        completed: false,
+      },
+      todo2: {
+        id: 'todo2',
+        title: 'todo2',
+        completed: false,
       },
     },
-    allIds: ['todo1'],
+    allIds: ['todo1', 'todo2'],
   },
 }
 

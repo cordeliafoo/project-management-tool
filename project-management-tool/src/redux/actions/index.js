@@ -6,8 +6,14 @@ export const ADD_FEATURE = 'ADD_FEATURE'
 export const EDIT_FEATURE = 'EDIT_FEATURE'
 export const DELETE_FEATURE = 'DELETE_FEATURE'
 
-let nextProjectId = 4
-let nextFeatureId = 4
+export const ADD_TODO = 'ADD_TODO'
+export const TOGGLE_COMPLETE_FOR_TODO = 'TOGGLE_COMPLETE_FOR_TODO'
+export const EDIT_TODO = 'EDIT_TODO'
+export const DELETE_TODO = 'DELETE_TODO'
+
+let nextProjectId = 3
+let nextFeatureId = 3
+let nextTodoId = 3
 
 export function addProject(text) {
   return {
@@ -58,5 +64,44 @@ export function deleteFeature(featureId, projectId) {
   return {
     type: DELETE_FEATURE,
     payload: { featureId: featureId, projectId: projectId },
+  }
+}
+
+export function addTodo(text, featureId) {
+  return {
+    type: ADD_TODO,
+    payload: {
+      todoId: `todo${nextTodoId++}`,
+      featureId: featureId,
+      title: text,
+    },
+  }
+}
+
+export function toggleCompleteForTodo(todoId) {
+  return {
+    type: TOGGLE_COMPLETE_FOR_TODO,
+    payload: {
+      todoId: todoId,
+    },
+  }
+}
+
+export function editTodo(todoId, text) {
+  return {
+    type: EDIT_TODO,
+    payload: {
+      todoId: todoId,
+      title: text,
+    },
+  }
+}
+export function deleteTodo(todoId, featureId) {
+  return {
+    type: DELETE_TODO,
+    payload: {
+      todoId: todoId,
+      featureId: featureId,
+    },
   }
 }

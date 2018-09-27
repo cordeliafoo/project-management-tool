@@ -20,10 +20,7 @@ class FeaturesList extends Component {
       this.props.store.projectReducer.byProjectId[project.id].features
 
     return (
-      <div
-        className="container"
-        style={{ overflow: 'scroll', minHeight: '100vh' }}
-      >
+      <div className="container" style={{ overflow: 'scroll' }}>
         <ul style={{ paddingInlineStart: 0, display: 'flex' }}>
           {!!projectFeatures &&
             projectFeatures.map((item, index) => (
