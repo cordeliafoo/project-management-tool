@@ -23,7 +23,7 @@ class EditProject extends Component {
   render() {
     return (
       <form style={{ width: '100%' }} onSubmit={e => this.handleSubmit(e)}>
-        <div className="input-group" style={{ width: '50%' }}>
+        <div className="input-group">
           <input
             ref={ref => (this.input = ref)}
             type="text"

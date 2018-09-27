@@ -50,7 +50,9 @@ class FeatureListItem extends Component {
             justifyContent: 'space-between',
           }}
         >
-          {!isEditing && !!feature && feature.title}
+          <p style={{ maxWidth: '200px', textAlign: 'le ft' }}>
+            {!isEditing && !!feature && feature.title}
+          </p>
           {!!isEditing && (
             <EditFeature
               value={title}

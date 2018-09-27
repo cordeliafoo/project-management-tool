@@ -6,6 +6,10 @@ import { deleteProject } from '../redux/actions/index.js'
 
 import EditProject from '../containers/EditProject.js'
 
+import Edit from '@material-ui/icons/Edit'
+import Delete from '@material-ui/icons/Delete'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+
 class ProjectListItem extends Component {
   constructor(props) {
     super(props)
@@ -52,36 +56,34 @@ class ProjectListItem extends Component {
               alignItems: 'center',
             }}
           >
-            {!isEditing && <p className="mb-0">{project.title}</p>}
-            {!!isEditing && (
-              <EditProject
-                projectId={project.id}
-                value={project.title}
-                onSave={text => this.handleEditSave(text)}
-              />
-            )}
             <div style={{ display: 'flex' }}>
-              {!isEditing && (
-                <button
-                  type="button"
-                  className="btn btn-primary mr-1"
-                  onClick={() => this.handleEditClick()}
-                >
-                  edit project title
-                </button>
+              <div style={{ display: 'flex' }} className="mr-2">
+                <Delete onClick={() => this.handleDeleteClick()} />
+                <div>&nbsp;</div>
+                {!isEditing && <Edit onClick={() => this.handleEditClick()} />}
+                <div>&nbsp;</div>
+              </div>
+              {!isEditing && <p className="mb-0">{project.title}</p>}
+              {!!isEditing && (
+                <EditProject
+                  projectId={project.id}
+                  value={project.title}
+                  onSave={text => this.handleEditSave(text)}
+                />
               )}
-              <Link to={`/${project.id}/`}>
-                <button type="button" className="btn btn-primary mr-1">
-                  view features
-                </button>
-              </Link>
-              <button
-                type="button"
-                className="btn btn-danger mr-1"
-                onClick={() => this.handleDeleteClick()}
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Link
+                to={`/${project.id}/`}
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  display: 'flex',
+                }}
               >
-                delete project
-              </button>
+                <ChevronRight style={{ fontSize: '3 0px' }} />
+              </Link>
             </div>
           </div>
         </li>
