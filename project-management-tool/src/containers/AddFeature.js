@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { editProject } from '../redux/actions/index.js'
+import { addFeature } from '../redux/actions/index.js'
 
-class EditProject extends Component {
+class AddFeature extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      text: this.props.value || '',
+      text: '',
     }
   }
 
@@ -16,24 +16,24 @@ class EditProject extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.dispatch(editProject(this.props.projectId, this.state.text))
-    this.props.onSave(this.state.text)
+    this.props.dispatch(addFeature(this.state.text, this.props.projectId))
   }
 
   render() {
     return (
       <form style={{ width: '100%' }} onSubmit={e => this.handleSubmit(e)}>
-        <div className="input-group" style={{ width: '50%' }}>
+        <div className="input-group mb-3 col-9 mx-auto">
           <input
             ref={ref => (this.input = ref)}
             type="text"
             className="form-control"
             value={this.state.text}
             onChange={e => this.handleChange(e)}
+            placeholder={'Add your next feature'}
           />
           <div className="input-group-append">
             <button className="btn btn-primary" id="basic-addon2" type="submit">
-              save
+              Add
             </button>
           </div>
         </div>
@@ -42,4 +42,4 @@ class EditProject extends Component {
   }
 }
 
-export default connect()(EditProject)
+export default connect()(AddFeature)

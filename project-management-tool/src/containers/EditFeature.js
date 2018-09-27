@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { editProject } from '../redux/actions/index.js'
+import { editFeature } from '../redux/actions/index.js'
 
-class EditProject extends Component {
+class EditFeature extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,14 +16,14 @@ class EditProject extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.dispatch(editProject(this.props.projectId, this.state.text))
+    this.props.dispatch(editFeature(this.props.featureId, this.state.text))
     this.props.onSave(this.state.text)
   }
 
   render() {
     return (
-      <form style={{ width: '100%' }} onSubmit={e => this.handleSubmit(e)}>
-        <div className="input-group" style={{ width: '50%' }}>
+      <form style={{ width: '70%' }} onSubmit={e => this.handleSubmit(e)}>
+        <div className="input-group">
           <input
             ref={ref => (this.input = ref)}
             type="text"
@@ -42,4 +42,4 @@ class EditProject extends Component {
   }
 }
 
-export default connect()(EditProject)
+export default connect()(EditFeature)

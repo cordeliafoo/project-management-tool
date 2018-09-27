@@ -14,12 +14,6 @@ class ProjectListItem extends Component {
     }
   }
 
-  handleSave(id, text) {
-    if (text.length === 0) {
-      this.props.delete
-    }
-  }
-
   handleEditClick() {
     this.setState({
       isEditing: true,
@@ -39,8 +33,6 @@ class ProjectListItem extends Component {
   render() {
     const { project } = this.props
     const { isEditing } = this.state
-
-    let projectId = project.id
 
     return (
       <div>

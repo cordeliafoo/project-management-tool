@@ -18,7 +18,9 @@ class App extends Component {
         />
         <BrowserRouter>
           <div>
-            <h1 className="App-title mt-4">Project Management Tool</h1>
+            <div style={{ padding: '2em', boxShadow: '1px 1px 10px gray' }}>
+              <h1 className="App-title">Project Management Tool</h1>
+            </div>
             <Route exact path="/" component={ProjectsView} />
             <Route exact path="/:projectId" component={FeaturesView} />
           </div>

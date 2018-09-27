@@ -4,7 +4,6 @@ import {
   EDIT_PROJECT,
   DELETE_PROJECT,
   ADD_FEATURE,
-  EDIT_FEATURE,
   DELETE_FEATURE,
 } from '../actions/index.js'
 
@@ -14,17 +13,16 @@ const initialState = {
       project1: {
         id: 'project1',
         title: 'project1',
-        features: ['feature1', 'feature2'],
+        features: ['feature1'],
       },
       project2: {
         id: 'project2',
         title: 'project2',
-        features: ['feature1', 'feature2'],
+        features: ['feature3'],
       },
       project3: {
         id: 'project3',
         title: 'project3',
-        features: ['feature1', 'feature2'],
       },
     },
     allIds: ['project1', 'project2', 'project3'],
@@ -36,8 +34,18 @@ const initialState = {
         title: 'feature1',
         todos: ['todo1', 'todo2'],
       },
+      feature2: {
+        id: 'feature2',
+        title: 'feature2',
+        todos: ['todo1', 'todo2'],
+      },
+      feature3: {
+        id: 'feature3',
+        title: 'feature3',
+        todos: ['todo1', 'todo2'],
+      },
     },
-    allIds: ['feature1'],
+    allIds: ['feature1', 'feature2', 'feature3'],
   },
   todos: {
     byId: {
@@ -79,11 +87,10 @@ function editProjectEntry(state, action) {
     [projectId]: project,
   }
 }
+
 function deleteProjectEntry(state, action) {
   const { payload } = action
   const { projectId } = payload
-
-  const project = state[projectId]
 
   let newState = Object.keys(state)
     .filter(key => key !== projectId)
@@ -96,6 +103,44 @@ function deleteProjectEntry(state, action) {
   }
 }
 
+function addFeature(state = initialState.projects.byId, action) {
+  const { payload } = action
+  const { projectId, featureId } = payload
+
+  switch (action.type) {
+    case ADD_FEATURE:
+      const project = state[projectId]
+      let projectFeatures = []
+      if (project.features) {
+        projectFeatures = project.features
+      }
+      return {
+        ...state,
+        [projectId]: {
+          ...project,
+          features: projectFeatures.concat(featureId),
+        },
+      }
+    default:
+      return state
+  }
+}
+
+function deleteFeature(state = initialState.projects.byId, action) {
+  const { payload } = action
+  const { projectId, featureId } = payload
+
+  const project = state[projectId]
+
+  return {
+    ...state,
+    [projectId]: {
+      ...project,
+      features: project.features.filter(item => item !== featureId),
+    },
+  }
+}
+
 function byProjectId(state = initialState.projects.byId, action) {
   switch (action.type) {
     case ADD_PROJECT:
@@ -104,6 +149,10 @@ function byProjectId(state = initialState.projects.byId, action) {
       return editProjectEntry(state, action)
     case DELETE_PROJECT:
       return deleteProjectEntry(state, action)
+    case ADD_FEATURE:
+      return addFeature(state, action)
+    case DELETE_FEATURE:
+      return deleteFeature(state, action)
     default:
       return state
   }
