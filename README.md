@@ -1,4 +1,5 @@
 # project-management-tool
 
-git clone the repo
-yarn install
+## Setup
+- git clone the repo
+- yarn install
